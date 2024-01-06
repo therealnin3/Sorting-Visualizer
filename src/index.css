@@ -2,36 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ROOT */
+:root {
+  --base-100: theme("colors.base.100");
+  --base-200: theme("colors.base.200");
+  --base-300: theme("colors.base.300");
+  --primary-100: theme("colors.primary.100");
+  --primary-200: theme("colors.primary.200");
+}
+
+/* ICON STYLE */
 .icon {
   stroke-width: 2.5px;
 }
 
+/* SLIDER STYLE */
+
+/* SLIDER TRACK */
 .slider {
   -webkit-appearance: none;
   width: 100%;
-  height: 15px;
-  border-radius: 5px;
-  background: #d3d3d3;
+  height: 5px;
+  background: var(--base-300);
+  border-radius: 100px;
   outline: none;
-  opacity: 0.7;
-  -webkit-transition: 0.2s;
-  transition: opacity 0.2s;
+  border: none;
 }
 
+/* SLIDER THUMB */
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 25px;
-  height: 25px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
-  background: #04aa6d;
-  cursor: pointer;
-}
-
-.slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #04aa6d;
+  background: var(--base-100);
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.146);
   cursor: pointer;
 }

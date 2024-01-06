@@ -7,13 +7,25 @@ export default {
         height: "height",
       },
       colors: {
-        primary: "#ff6363",
+        primary: {
+          100: "#6670F8",
+          200: "#02063B",
+        },
         base: {
-          100: "#fcfcfc",
-          200: "d9d9d9",
+          100: "#FFFFFF",
+          200: "#FCFCFC",
+          300: "#E2E2E2",
         },
       },
     },
   },
   plugins: [],
 };
+
+// amount of divs
+// speed of solve
+// color of divs
+// buttons for different algorithms
+// buttons for different sorted arrays
+// min and max vales
+// allow same values

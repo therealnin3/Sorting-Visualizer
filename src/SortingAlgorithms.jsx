@@ -1,7 +1,7 @@
 import React from "react";
 
 // Resource from https://www.geeksforgeeks.org/bubble-sort/?ref=shm
-export function bubbleSort(arr) {
+export function bubbleSortMain(arr) {
   const animations = [];
   var n = arr.length;
   var i, j, temp;
