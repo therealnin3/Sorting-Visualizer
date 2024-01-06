@@ -1,6 +1,6 @@
 import React from "react";
 
-// Resource from https://www.geeksforgeeks.org/bubble-sort/?ref=shm
+// Resource from https://www.geeksforgeeks.org/bubble-sort/
 export function bubbleSortMain(arr) {
   const animations = [];
   var n = arr.length;
@@ -23,7 +23,7 @@ export function bubbleSortMain(arr) {
   return animations;
 }
 
-// Resource from https://www.geeksforgeeks.org/quick-sort/?ref=shm
+// Resource from https://www.geeksforgeeks.org/quick-sort/
 export function quickSortMain(arr) {
   const animations = [];
   quickSort(arr, 0, arr.length - 1, animations);
@@ -51,4 +51,40 @@ function partition(arr, low, high, animations) {
   [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
   animations.push({ left: i + 1, right: high });
   return i + 1;
+}
+
+// Resource from https://www.geeksforgeeks.org/selection-sort/
+export function selectionSort(arr) {
+  const animations = [];
+  var n = arr.length;
+  var i, j, min_idx;
+  for (i = 0; i < n - 1; i++) {
+    min_idx = i;
+    for (j = i + 1; j < n; j++) if (arr[j] < arr[min_idx]) min_idx = j;
+    swap(arr, min_idx, i);
+    animations.push({ left: min_idx, right: i });
+  }
+  return animations;
+}
+
+function swap(arr, xp, yp) {
+  var temp = arr[xp];
+  arr[xp] = arr[yp];
+  arr[yp] = temp;
+}
+
+// Resource from https://www.geeksforgeeks.org/insertion-sort/
+export function insertionSort(arr) {
+  const animations = [];
+  let n = arr.length;
+  let i, key, j;
+  for (i = 1; i < n; i++) {
+    key = arr[i];
+    j = i - 1;
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j = j - 1;
+    }
+    arr[j + 1] = key;
+  }
 }
