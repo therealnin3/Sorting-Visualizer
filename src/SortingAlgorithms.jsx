@@ -82,9 +82,12 @@ export function insertionSort(arr) {
     key = arr[i];
     j = i - 1;
     while (j >= 0 && arr[j] > key) {
+      animations.push({ left: j, right: j + 1, operation: "shift" });
       arr[j + 1] = arr[j];
       j = j - 1;
     }
+    animations.push({ left: j + 1, value: key, operation: "insert" });
     arr[j + 1] = key;
   }
+  return animations;
 }

@@ -37,7 +37,7 @@ function App() {
 
   const [insertionSortVar] = useState({
     name: "insertion sort",
-    function: insertionSort, // TODO:
+    function: insertionSort,
   });
 
   const [mergeSortVar] = useState({
@@ -88,9 +88,11 @@ function App() {
 
     setDataNumbers((prevDataNumbers) => {
       const newDataNumbers = [...prevDataNumbers];
-      const temp = newDataNumbers[shift.left];
-      newDataNumbers[shift.left] = newDataNumbers[shift.right];
-      newDataNumbers[shift.right] = temp;
+      if (shift.operation === "shift") {
+        newDataNumbers[shift.right] = newDataNumbers[shift.left];
+      } else if (shift.operation === "insert") {
+        newDataNumbers[shift.left] = shift.value;
+      }
       return newDataNumbers;
     });
 
