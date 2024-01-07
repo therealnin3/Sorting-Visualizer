@@ -5,7 +5,7 @@ function Slider({ sliderID, min, max, sliderValue, setSliderValue, leftIcon }) {
           var(--primary-100) ${sliderValue}%, var(--base-300) ${sliderValue}%, 
           var(--base-300) 100%)`;
   return (
-    <div className="flex flex-row gap-2 items-center justify-center">
+    <div className="flex flex-row gap-2 items-center justify-center w-full">
       <div className="w-10 flex items-center justify-center">{leftIcon}</div>
       <input
         className="slider"

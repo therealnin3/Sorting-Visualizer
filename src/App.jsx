@@ -177,6 +177,16 @@ function App() {
 
   return (
     <div className="bg-base-200 h-screen w-screen flex flex-col items-center justify-center gap-5 overflow-hidden px-[calc(100%*1/9)]">
+      <div className="flex flex-row gap-2">
+        {arrayOfSorts.map((sortConstVar, index) => (
+          <SortCard
+            key={index}
+            sortConstVar={sortConstVar}
+            selectedSort={selectedSort}
+            setSelectedSort={setSelectedSort}
+          />
+        ))}
+      </div>
       <div className="bg-base-100 flex justify-center items-end gap-2 w-full h-1/2 rounded-2xl shadow-xl p-5">
         {dataNumbers.map((item, index) => (
           <div
@@ -186,18 +196,8 @@ function App() {
           ></div>
         ))}
       </div>
-      <div className="bg-base-100 w-full h-fit rounded-2xl shadow-xl p-5 flex gap-3 flex-col items-center justify-center overflow-hidden">
-        <div className="flex flex-row gap-2">
-          {arrayOfSorts.map((sortConstVar, index) => (
-            <SortCard
-              key={index}
-              sortConstVar={sortConstVar}
-              selectedSort={selectedSort}
-              setSelectedSort={setSelectedSort}
-            />
-          ))}
-        </div>
-        <div className="flex flex-col gap-3">
+      <div className="border-4 border-base-300 w-1/2 h-fit rounded-2xl p-5 flex gap-3 flex-col items-center justify-center overflow-hidden">
+        <div className="flex w-full flex-col items-center justify-center gap-3">
           <Slider
             sliderID="sliderSpeed"
             min={1}
@@ -216,74 +216,23 @@ function App() {
             setSliderValue={setSliderNumberAmount}
             leftIcon={<LuBarChart2 className="text-primary-200" size={25} />}
           />
-          <Slider
-            sliderID="sliderNumberAmount"
-            min={1}
-            max={100}
-            sliderValue={sliderNumberAmount}
-            setSliderValue={setSliderNumberAmount}
-            leftIcon={<LuBarChart2 className="text-primary-200" size={25} />}
-          />
+          <div className="flex gap-2 items-center justify-center">
+            <button
+              onClick={() => generateRandomData()}
+              className="flex items-center justify-center p-2 rounded-full bg-base-100 shadow-lg"
+            >
+              <FiRotateCw size={25} className="text-primary-200" />
+            </button>
+            <button
+              onClick={() =>
+                playAnimations(selectedSort.function([...dataNumbers]))
+              }
+              className="flex items-center justify-center p-2 rounded-full bg-base-100 shadow-lg"
+            >
+              <FiPlay size={25} className="text-primary-200" />
+            </button>
+          </div>
         </div>
-        {/* <div className="w-3/5 flex flex-col mb-4">
-          <Slider
-            sliderID="sliderNumberAmount"
-            min={1}
-            max={100}
-            sliderValue={sliderNumberAmount}
-            setSliderValue={setSliderNumberAmount}
-            leftIcon={<TbBrandSpeedtest size={24} />}
-            // rightIcon={<TbBrandSpeedtest size={30} />}
-          />
-          <Slider
-            sliderID="sliderSpeed"
-            min={1}
-            max={100}
-            sliderValue={sliderSpeed}
-            setSliderValue={setSliderSpeed}
-            leftIcon={<TbAntennaBars5 size={24} />}
-            // rightIcon={<TbAntennaBars5 size={30} />}
-          />
-          <Slider
-            sliderID="toets1"
-            min={1}
-            max={100}
-            sliderValue={sliderSpeed}
-            setSliderValue={setSliderSpeed}
-          />
-          <Slider
-            sliderID="toets2"
-            min={1}
-            max={100}
-            sliderValue={sliderSpeed}
-            setSliderValue={setSliderSpeed}
-          />
-          <Slider
-            sliderID="toets3"
-            min={1}
-            max={100}
-            sliderValue={sliderSpeed}
-            setSliderValue={setSliderSpeed}
-          />
-        </div> */}
-      </div>
-      <div className="flex flex-row gap-2">
-        <button
-          onClick={() =>
-            playAnimations(selectedSort.function([...dataNumbers]))
-          }
-          className="flex items-center justify-center gap-2 w-fit h-fit px-4 py-2 bg-primary-200 font-bold text-lg text-base-100 shadow-lg rounded-2xl"
-        >
-          <FiPlay className="icon" size={24} />
-          <p className="hover:cursor-pointer">PLAY</p>
-        </button>
-        <button
-          onClick={() => generateRandomData()}
-          className="flex items-center justify-center gap-2 w-fit h-fit px-4 py-2 bg-primary-200 font-bold text-lg text-base-100 shadow-lg rounded-2xl"
-        >
-          <FiRotateCw className="icon" size={24} />
-          <p className="hover:cursor-pointer">RESET</p>
-        </button>
       </div>
     </div>
   );
