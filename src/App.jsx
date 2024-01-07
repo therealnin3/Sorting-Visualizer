@@ -8,6 +8,7 @@ import {
   quickSortMain,
   selectionSort,
   insertionSort,
+  mergeSortMain,
 } from "./SortingAlgorithms";
 import Slider from "./components/Slider";
 import SortCard from "./components/SortCard";
@@ -42,7 +43,7 @@ function App() {
 
   const [mergeSortVar] = useState({
     name: "merge sort",
-    function: () => {}, // TODO:
+    function: mergeSortMain,
   });
 
   const [quickSortVar] = useState({
@@ -62,7 +63,6 @@ function App() {
   const barColor = "bg-primary-100";
   const barColorActive = "bg-primary-200";
   const [selectedSort, setSelectedSort] = useState(selectionSortVar);
-  const [isPlayingAnimation, setIsPlayingAnimation] = useState(false);
 
   useEffect(() => {
     generateRandomData();
@@ -87,27 +87,55 @@ function App() {
     const shift = animations[0];
 
     setDataNumbers((prevDataNumbers) => {
+      // Set numbers
       const newDataNumbers = [...prevDataNumbers];
       if (shift.operation === "shift") {
         newDataNumbers[shift.right] = newDataNumbers[shift.left];
       } else if (shift.operation === "insert") {
         newDataNumbers[shift.left] = shift.value;
+      } else if (shift.operation === "swap") {
+        const temp = newDataNumbers[shift.left];
+        newDataNumbers[shift.left] = newDataNumbers[shift.right];
+        newDataNumbers[shift.right] = temp;
+      } else if (shift.operation === "move") {
+        newDataNumbers[shift.index] = shift.value;
       }
       return newDataNumbers;
     });
 
+    // Set colors
     setDataColors((prevDataColors) => {
       const newDataColors = [...prevDataColors];
-      newDataColors[shift.left] = barColorActive;
-      newDataColors[shift.right] = barColorActive;
+
+      if (shift.operation === "shift") {
+        newDataColors[shift.right] = barColorActive;
+      } else if (shift.operation === "insert") {
+        newDataColors[shift.left] = "bg-green-500";
+      } else if (shift.operation === "swap") {
+        newDataColors[shift.left] = barColorActive;
+        newDataColors[shift.right] = barColorActive;
+      } else if (shift.operation === "move") {
+        newDataColors[shift.index] = barColorActive;
+      }
       return newDataColors;
     });
 
     setTimeout(() => {
       setDataColors((prevDataColors) => {
         const newDataColors = [...prevDataColors];
-        newDataColors[shift.left] = barColor;
-        newDataColors[shift.right] = barColor;
+
+        // Reset colors
+        if (shift.operation === "shift") {
+          newDataColors[shift.right] = barColor;
+        } else if (shift.operation === "insert") {
+          newDataColors[shift.left] = barColor;
+        } else if (shift.operation === "swap") {
+          newDataColors[shift.left] = barColor;
+          newDataColors[shift.right] = barColor;
+        } else if (shift.operation === "move") {
+          newDataColors[shift.index] = barColor;
+        }
+
         return newDataColors;
       });
       playAnimations(animations.slice(1));
@@ -247,14 +275,14 @@ function App() {
           className="flex items-center justify-center gap-2 w-fit h-fit px-4 py-2 bg-primary-200 font-bold text-lg text-base-100 shadow-lg rounded-2xl"
         >
           <FiPlay className="icon" size={24} />
-          <label className="hover:cursor-pointer">PLAY</label>
+          <p className="hover:cursor-pointer">PLAY</p>
         </button>
         <button
           onClick={() => generateRandomData()}
           className="flex items-center justify-center gap-2 w-fit h-fit px-4 py-2 bg-primary-200 font-bold text-lg text-base-100 shadow-lg rounded-2xl"
         >
           <FiRotateCw className="icon" size={24} />
-          <label className="hover:cursor-pointer">RESET</label>
+          <p className="hover:cursor-pointer">RESET</p>
         </button>
       </div>
     </div>
