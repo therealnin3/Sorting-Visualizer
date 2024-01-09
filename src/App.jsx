@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { FiRotateCw, FiPlay, FiExternalLink } from "react-icons/fi";
+import { FiRotateCw, FiPlay, FiPause, FiExternalLink } from "react-icons/fi";
 import { TbBrandSpeedtest } from "react-icons/tb";
 import { LuBarChart2 } from "react-icons/lu";
 import "./index.css";
@@ -63,6 +63,10 @@ function App() {
   const barColor = "bg-primary-100";
   const barColorActive = "bg-primary-200";
   const [selectedSort, setSelectedSort] = useState(selectionSortVar);
+
+  const animations = useRef([]);
+  const isPlaying = useRef(false);
+
   useEffect(() => {
     generateRandomData();
   }, []);
@@ -78,12 +82,38 @@ function App() {
     generateRandomData();
   }, [sliderNumberAmount]);
 
-  const playAnimations = (animations) => {
-    if (animations.length === 0) {
+  const playAnimation = () => {
+    // If animations is empty, generate new animations
+    console.log("clicked play", isPlaying.current);
+    if (animations.current.length === 0) {
+      animations.current = selectedSort.function([...dataNumbers]);
+    }
+    isPlaying.current = true;
+    animateAnimations();
+  };
+
+  const pauseAnimation = () => {
+    isPlaying.current = false;
+  };
+
+  const stopAnimation = () => {
+    isPlaying.current = false;
+    animations.current = [];
+  };
+
+  const animateAnimations = () => {
+    console.log("inside recursion", animations, isPlaying.current);
+
+    if (!isPlaying.current) {
       return;
     }
 
-    const shift = animations[0];
+    if (animations.current.length === 0) {
+      isPlaying.current = false;
+      return;
+    }
+
+    const shift = animations.current[0];
 
     // Set numbers
     setDataNumbers((prevDataNumbers) => {
@@ -136,7 +166,8 @@ function App() {
 
         return newDataColors;
       });
-      playAnimations(animations.slice(1));
+      animations.current = animations.current.slice(1);
+      animateAnimations();
     }, 450 - mapRange(sliderSpeedRef.current, 1, 100, 40, 450)); // 1-100 -> 40 - 450
   };
 
@@ -228,6 +259,7 @@ function App() {
           <div className="flex gap-2 items-center justify-center">
             <button
               onClick={() => {
+                stopAnimation();
                 generateRandomData();
               }}
               className="flex items-center justify-center p-3 rounded-full bg-base-100 shadow-lg"
@@ -235,12 +267,20 @@ function App() {
               <FiRotateCw size={25} className="text-primary-200" />
             </button>
             <button
-              onClick={() =>
-                playAnimations(selectedSort.function([...dataNumbers]))
-              }
+              onClick={() => {
+                if (isPlaying.current) {
+                  pauseAnimation();
+                } else {
+                  playAnimation();
+                }
+              }}
               className="flex items-center justify-center  p-3 rounded-full bg-base-100 shadow-lg"
             >
-              <FiPlay size={25} className="text-primary-200" />
+              {isPlaying.current ? (
+                <FiPause size={25} className="text-primary-200" />
+              ) : (
+                <FiPlay size={25} className="text-primary-200" />
+              )}
             </button>
           </div>
         </div>
