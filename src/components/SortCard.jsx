@@ -1,14 +1,20 @@
 import React from "react";
 
-function SortCard({ sortConstVar, selectedSort, setSelectedSort }) {
+function SortCard({
+  sortConstVar,
+  selectedSort,
+  setSelectedSort,
+  resetFunction,
+}) {
   return (
     <div
-      onClick={() =>
+      onClick={() => {
         setSelectedSort({
           name: sortConstVar.name,
           function: sortConstVar.function,
-        })
-      }
+        });
+        resetFunction();
+      }}
       className={`${
         sortConstVar.name === selectedSort.name
           ? "bg-primary-200 text-base-100"

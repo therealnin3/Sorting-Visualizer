@@ -15,6 +15,7 @@ export default {
           100: "#FFFFFF",
           200: "#FCFCFC",
           300: "#E2E2E2",
+          400: "#bfbfbf",
         },
       },
     },

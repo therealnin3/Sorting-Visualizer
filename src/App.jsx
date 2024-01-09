@@ -84,7 +84,6 @@ function App() {
 
   const playAnimation = () => {
     // If animations is empty, generate new animations
-    console.log("clicked play", isPlaying.current);
     if (animations.current.length === 0) {
       animations.current = selectedSort.function([...dataNumbers]);
     }
@@ -102,8 +101,6 @@ function App() {
   };
 
   const animateAnimations = () => {
-    console.log("inside recursion", animations, isPlaying.current);
-
     if (!isPlaying.current) {
       return;
     }
@@ -212,7 +209,7 @@ function App() {
         className="flex flex-row gap-2 text-primary-100 items-center justify-center"
       >
         <FiExternalLink size={16} />
-        <p className="font-semibold">therealnin3</p>
+        <p className="font-semibold">nin3</p>
       </a>
 
       <div className="bg-base-100 flex justify-center items-end gap-2 w-full h-1/2 rounded-2xl shadow-xl p-5">
@@ -231,6 +228,10 @@ function App() {
             sortConstVar={sortConstVar}
             selectedSort={selectedSort}
             setSelectedSort={setSelectedSort}
+            resetFunction={() => {
+              stopAnimation();
+              generateRandomData();
+            }}
           />
         ))}
       </div>
@@ -253,7 +254,17 @@ function App() {
               max={100}
               sliderValue={sliderNumberAmount}
               setSliderValue={setSliderNumberAmount}
-              leftIcon={<LuBarChart2 className="text-primary-200" size={25} />}
+              leftIcon={
+                <LuBarChart2
+                  className={
+                    isPlaying.current || animations.current.length > 0
+                      ? "text-base-400"
+                      : "text-primary-200"
+                  }
+                  size={25}
+                />
+              }
+              isDisabled={isPlaying.current || animations.current.length > 0}
             />
           </div>
           <div className="flex gap-2 items-center justify-center">
