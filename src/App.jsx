@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { FiRotateCw, FiPlay } from "react-icons/fi";
+import { FiRotateCw, FiPlay, FiExternalLink } from "react-icons/fi";
 import { TbBrandSpeedtest } from "react-icons/tb";
 import { LuBarChart2 } from "react-icons/lu";
 import "./index.css";
@@ -63,7 +63,6 @@ function App() {
   const barColor = "bg-primary-100";
   const barColorActive = "bg-primary-200";
   const [selectedSort, setSelectedSort] = useState(selectionSortVar);
-
   useEffect(() => {
     generateRandomData();
   }, []);
@@ -86,8 +85,8 @@ function App() {
 
     const shift = animations[0];
 
+    // Set numbers
     setDataNumbers((prevDataNumbers) => {
-      // Set numbers
       const newDataNumbers = [...prevDataNumbers];
       if (shift.operation === "shift") {
         newDataNumbers[shift.right] = newDataNumbers[shift.left];
@@ -106,7 +105,6 @@ function App() {
     // Set colors
     setDataColors((prevDataColors) => {
       const newDataColors = [...prevDataColors];
-
       if (shift.operation === "shift") {
         newDataColors[shift.right] = barColorActive;
       } else if (shift.operation === "insert") {
@@ -139,7 +137,7 @@ function App() {
         return newDataColors;
       });
       playAnimations(animations.slice(1));
-    }, mapRange(sliderSpeedRef.current, 1, 100, 450, 40)); // 40 - 450
+    }, 450 - mapRange(sliderSpeedRef.current, 1, 100, 40, 450)); // 1-100 -> 40 - 450
   };
 
   const mapRange = (value, in_min, in_max, out_min, out_max) => {
@@ -177,16 +175,15 @@ function App() {
 
   return (
     <div className="bg-base-200 h-screen w-screen flex flex-col items-center justify-center gap-5 overflow-hidden px-[calc(100%*1/9)]">
-      <div className="flex flex-row gap-2">
-        {arrayOfSorts.map((sortConstVar, index) => (
-          <SortCard
-            key={index}
-            sortConstVar={sortConstVar}
-            selectedSort={selectedSort}
-            setSelectedSort={setSelectedSort}
-          />
-        ))}
-      </div>
+      <a
+        target="_blank"
+        href="https://github.com/therealnin3"
+        className="flex flex-row gap-2 text-primary-100 items-center justify-center"
+      >
+        <FiExternalLink size={16} />
+        <p className="font-semibold">therealnin3</p>
+      </a>
+
       <div className="bg-base-100 flex justify-center items-end gap-2 w-full h-1/2 rounded-2xl shadow-xl p-5">
         {dataNumbers.map((item, index) => (
           <div
@@ -196,30 +193,44 @@ function App() {
           ></div>
         ))}
       </div>
-      <div className="border-4 border-base-300 w-1/2 h-fit rounded-2xl p-5 flex gap-3 flex-col items-center justify-center overflow-hidden">
-        <div className="flex w-full flex-col items-center justify-center gap-3">
-          <Slider
-            sliderID="sliderSpeed"
-            min={1}
-            max={100}
-            sliderValue={sliderSpeed}
-            setSliderValue={setSliderSpeed}
-            leftIcon={
-              <TbBrandSpeedtest className="text-primary-200" size={25} />
-            }
+      <div className="flex flex-wrap flex-row gap-2">
+        {arrayOfSorts.map((sortConstVar, index) => (
+          <SortCard
+            key={index}
+            sortConstVar={sortConstVar}
+            selectedSort={selectedSort}
+            setSelectedSort={setSelectedSort}
           />
-          <Slider
-            sliderID="sliderNumberAmount"
-            min={1}
-            max={100}
-            sliderValue={sliderNumberAmount}
-            setSliderValue={setSliderNumberAmount}
-            leftIcon={<LuBarChart2 className="text-primary-200" size={25} />}
-          />
+        ))}
+      </div>
+      <div className="border-2 border-base-300 w-fit h-fit rounded-2xl p-5 flex gap-3 flex-col items-center justify-center overflow-hidden">
+        <div className="flex w-full flex-col items-center justify-center gap-4">
+          <div className="flex flex-col gap-4">
+            <Slider
+              sliderID="sliderSpeed"
+              min={1}
+              max={100}
+              sliderValue={sliderSpeed}
+              setSliderValue={setSliderSpeed}
+              leftIcon={
+                <TbBrandSpeedtest className="text-primary-200" size={25} />
+              }
+            />
+            <Slider
+              sliderID="sliderNumberAmount"
+              min={1}
+              max={100}
+              sliderValue={sliderNumberAmount}
+              setSliderValue={setSliderNumberAmount}
+              leftIcon={<LuBarChart2 className="text-primary-200" size={25} />}
+            />
+          </div>
           <div className="flex gap-2 items-center justify-center">
             <button
-              onClick={() => generateRandomData()}
-              className="flex items-center justify-center p-2 rounded-full bg-base-100 shadow-lg"
+              onClick={() => {
+                generateRandomData();
+              }}
+              className="flex items-center justify-center p-3 rounded-full bg-base-100 shadow-lg"
             >
               <FiRotateCw size={25} className="text-primary-200" />
             </button>
@@ -227,7 +238,7 @@ function App() {
               onClick={() =>
                 playAnimations(selectedSort.function([...dataNumbers]))
               }
-              className="flex items-center justify-center p-2 rounded-full bg-base-100 shadow-lg"
+              className="flex items-center justify-center  p-3 rounded-full bg-base-100 shadow-lg"
             >
               <FiPlay size={25} className="text-primary-200" />
             </button>
