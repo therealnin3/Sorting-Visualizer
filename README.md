@@ -17,3 +17,8 @@ Here are some screenshots of the App:
 ![Image 1](./screenshots/1.JPG)
 
 ![Image 1](/screenshots/2.gif)
+
+## Additional
+
+- This project is hosted on [GitHub Pages](https://therealnin3.github.io/Sorting-Visualizer/).
+- UI insperation from [Hugo's sinewaver](https://www.sinwaver.com/).
