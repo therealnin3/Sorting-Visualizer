@@ -20,5 +20,5 @@ Here are some screenshots of the app:
 
 ## Additional
 
-- This project is hosted on [GitHub Pages](https://therealnin3.github.io/Sorting-Visualizer/).
+- This project is hosted using GitHub Pages and can be visited [here](https://therealnin3.github.io/Sorting-Visualizer/).
 - UI inspiration from [Hugo's sinewaver](https://www.sinwaver.com/).
