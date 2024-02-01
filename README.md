@@ -2,7 +2,7 @@
 
 ## Description
 
-A simple sorting visualizer (using react and tailwind) with algorithms :
+A simple sorting visualizer (using React and Tailwind) with algorithms:
 
 - Selection sort
 - Bubble sort
@@ -12,13 +12,13 @@ A simple sorting visualizer (using react and tailwind) with algorithms :
 
 ## Screenshots
 
-Here are some screenshots of the App:
+Here are some screenshots of the app:
 
 ![Image 1](./screenshots/1.JPG)
 
-![Image 1](/screenshots/2.gif)
+![Image 2](./screenshots/2.gif)
 
 ## Additional
 
 - This project is hosted on [GitHub Pages](https://therealnin3.github.io/Sorting-Visualizer/).
-- UI insperation from [Hugo's sinewaver](https://www.sinwaver.com/).
+- UI inspiration from [Hugo's sinewaver](https://www.sinwaver.com/).
