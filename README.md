@@ -1,8 +1,8 @@
-# Sorting-Visualizer ❄️ - Using React and TailwindCSS
+# Sorting-Visualizer ❄️
 
 ## Description
 
-A simple sorting visualizer with algorithms using react and tailwind:
+A simple sorting visualizer (using react and tailwind) with algorithms :
 
 - Selection sort
 - Bubble sort
